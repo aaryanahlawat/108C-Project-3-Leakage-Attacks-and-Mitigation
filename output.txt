@@ -1,0 +1,268 @@
+SEAL ADJ-ORAM-α Execution Trace
+============================================================
+SEAL Configuration: SEAL(1, ⊥)
+Parameters:
+  α (alpha) = 1 → P = 2^1 = 2 partitions
+  L (tree height) = 2 → 4 leaves per partition
+  Z (bucket size) = 4
+  x (padding) = ⊥ (disabled)
+Leakage:
+  Access pattern: 1 bit (which partition)
+  Volume pattern: Full (actual sizes visible)
+============================================================
+
+============================================================
+Query: WRITE 1 10
+============================================================
+
+--- State after: WRITE 1 10 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 0, Leaf 3):
+  (empty)
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+Query: WRITE 2 20
+============================================================
+
+--- State after: WRITE 2 20 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+  Block 2 -> (Partition 1, Leaf 1)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 1, Leaf 0):
+  (empty)
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [(2,20) + 3 dummy blocks]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+Query: WRITE 3 30
+============================================================
+
+--- State after: WRITE 3 30 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+  Block 2 -> (Partition 1, Leaf 1)
+  Block 3 -> (Partition 1, Leaf 2)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 1, Leaf 0):
+  Block 2: data=20
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [(3,30) + 3 dummy blocks]
+  Bucket 1: [(2,20) + 3 dummy blocks]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+Query: READ 1
+============================================================
+
+--- State after: READ 1 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+  Block 2 -> (Partition 1, Leaf 1)
+  Block 3 -> (Partition 1, Leaf 2)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 0, Leaf 3):
+  Block 1: data=10
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [(3,30) + 3 dummy blocks]
+  Bucket 1: [(2,20) + 3 dummy blocks]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+Query: READ 2
+============================================================
+
+--- State after: READ 2 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+  Block 2 -> (Partition 1, Leaf 1)
+  Block 3 -> (Partition 1, Leaf 2)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 1, Leaf 1):
+  Block 2: data=20
+  Block 3: data=30
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [(3,30) + 3 dummy blocks]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [(2,20) + 3 dummy blocks]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+Query: READ 3
+============================================================
+
+--- State after: READ 3 ---
+
+Client Position Map (block_id -> (partition_id, leaf_id)):
+  Block 1 -> (Partition 0, Leaf 3)
+  Block 2 -> (Partition 1, Leaf 1)
+  Block 3 -> (Partition 1, Leaf 1)
+
+Client Stash (after operation):
+  (empty)
+
+Mid-Query Stash (after reading path to Partition 1, Leaf 2):
+  Block 3: data=30
+
+============================================================
+SERVER TREE STRUCTURES (All Partitions)
+============================================================
+
+--- Partition 0 ---
+  Bucket 0: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [(1,10) + 3 dummy blocks]
+
+--- Partition 1 ---
+  Bucket 0: [(3,30) + 3 dummy blocks]
+  Bucket 1: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 2: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 3: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 4: [(2,20) + 3 dummy blocks]
+  Bucket 5: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+  Bucket 6: [4 dummy blocks [(-1,-1), (-2,-2), (-3,-3), (-4,-4)]]
+============================================================
+
+
+============================================================
+FINAL STATISTICS
+============================================================
+Total Accesses: 6
+Reads: 3
+Writes: 3
+Max Stash Size: 0
+Final Stash Size: 0
+Blocks in Position Map: 3
+Number of Partitions (P): 2
+Leakage Parameter (α): 1

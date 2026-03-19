@@ -456,29 +456,8 @@ def print_state(query: str, client: Client, partitions: Dict[int, Server], outpu
         for bucket_id in range(server.total_buckets):
             blocks = tree.get(bucket_id, [])
             
-            # Separate real blocks from dummy blocks
-            real_blocks = [(bid, data) for bid, data in blocks if bid >= 0]
-            dummy_blocks = [(bid, data) for bid, data in blocks if bid < 0]
-            
-            # Format bucket contents
-            if real_blocks:
-                block_strs = [f"({blk_id},{data})" for blk_id, data in real_blocks]
-                content = ", ".join(block_strs)
-            else:
-                content = ""
-            
-            # Add dummy blocks indicator
-            if dummy_blocks:
-                dummy_str = f"{len(dummy_blocks)} dummy blocks"
-                if content:
-                    content += " + " + dummy_str
-                else:
-                    content = dummy_str
-            
-            # Show what the dummies are (only if no real blocks)
-            if dummy_blocks and len(real_blocks) == 0:
-                dummy_details = ", ".join([f"({bid},{data})" for bid, data in dummy_blocks])
-                content += f" [{dummy_details}]"
+            # Format all blocks in their actual order (real and dummy together)
+            content = ", ".join([f"({blk_id}, {data})" for blk_id, data in blocks])
             
             print(f"  Bucket {bucket_id}: [{content}]")
             output_file.write(f"  Bucket {bucket_id}: [{content}]\n")

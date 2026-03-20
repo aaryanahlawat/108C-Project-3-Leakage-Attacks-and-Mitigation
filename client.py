@@ -823,6 +823,8 @@ def main():
                     for _bid in matching_blocks:
                         client.read(_bid)
                     # Emit one group-level log entry with the real result size
+                    # AND one per-block READ entry for each accessed block so
+                    # the DR attack can see the α-bit partition leakage per tuple.
                     if _qlog is not None:
                         _padded_group = client._calculate_padded_size(group_size)
                         _qlog.write(_json.dumps({
@@ -835,6 +837,22 @@ def main():
                             "padded_size": _padded_group if x is not None else group_size,
                             "value_code":  value_code,
                         }) + "\n")
+                        # Per-block entries: server sees partition_id for each
+                        # individual ORAM access — this IS the α-bit leakage.
+                        # The DR attack uses these to narrow candidates per block.
+                        for _bid in matching_blocks:
+                            _part, _leaf = client.position[_bid]
+                            _qlog.write(_json.dumps({
+                                "type":        "query",
+                                "op":          "GROUP_READ_BLOCK",
+                                "block_id":    _bid,
+                                "partition_id": _part,
+                                "alpha_bits":  _part,
+                                "actual_size": 1,
+                                "padded_size": 1,
+                                "value_code":  value_code,
+                                "data":        value_code,
+                            }) + "\n")
                     print_state(query, client, partitions, output_file)
                     print(f"{'='*60}\n")
                     output_file.write(f"{'='*60}\n\n")

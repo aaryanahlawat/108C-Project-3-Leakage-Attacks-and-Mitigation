@@ -1,0 +1,67 @@
+{
+  "seal_params": {
+    "alpha": 3,
+    "padding_x": 4,
+    "P": 8
+  },
+  "attribute": "Primary Type",
+  "dataset_size": 8514784,
+  "distinct_values": 34,
+  "mode": "se",
+  "query_recovery": {
+    "qrsr": 0.23461538461538461,
+    "baseline": 0.038461538461538464,
+    "candidates": 2.8846153846153846,
+    "per_value": {
+      "OTHER OFFENSE": 0.0,
+      "DECEPTIVE PRACTICE": 0.06666666666666667,
+      "ASSAULT": 0.0,
+      "ROBBERY": 0.25,
+      "OFFENSE INVOLVING CHILDREN": 0.1,
+      "BURGLARY": 0.2,
+      "CRIMINAL SEXUAL ASSAULT": 0.3,
+      "CRIMINAL TRESPASS": 0.4,
+      "WEAPONS VIOLATION": 0.4,
+      "SEX OFFENSE": 0.1,
+      "PUBLIC PEACE VIOLATION": 0.1,
+      "STALKING": 0.2,
+      "INTERFERENCE WITH PUBLIC OFFICER": 0.1,
+      "HOMICIDE": 0.0,
+      "ARSON": 0.2,
+      "KIDNAPPING": 0.0,
+      "LIQUOR LAW VIOLATION": 0.4,
+      "INTIMIDATION": 0.5,
+      "CONCEALED CARRY LICENSE VIOLATION": 0.6,
+      "PROSTITUTION": 0.4,
+      "HUMAN TRAFFICKING": 1.0
+    },
+    "mode": "se"
+  },
+  "database_recovery": {
+    "drsr": 0.11538461538461539,
+    "greedy": 0.2124078543859715,
+    "per_value": {
+      "OTHER OFFENSE": 0.0,
+      "DECEPTIVE PRACTICE": 0.0,
+      "ASSAULT": 0.0,
+      "ROBBERY": 0.0,
+      "OFFENSE INVOLVING CHILDREN": 0.0,
+      "BURGLARY": 0.0,
+      "CRIMINAL SEXUAL ASSAULT": 0.0,
+      "CRIMINAL TRESPASS": 0.0,
+      "WEAPONS VIOLATION": 0.0,
+      "SEX OFFENSE": 0.0,
+      "PUBLIC PEACE VIOLATION": 0.0,
+      "STALKING": 0.0,
+      "INTERFERENCE WITH PUBLIC OFFICER": 0.0,
+      "HOMICIDE": 0.0,
+      "ARSON": 1.0,
+      "KIDNAPPING": 0.0,
+      "LIQUOR LAW VIOLATION": 1.0,
+      "INTIMIDATION": 0.0,
+      "CONCEALED CARRY LICENSE VIOLATION": 0.0,
+      "PROSTITUTION": 0.0,
+      "HUMAN TRAFFICKING": 1.0
+    }
+  }
+}

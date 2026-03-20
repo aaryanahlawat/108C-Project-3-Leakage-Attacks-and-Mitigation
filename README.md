@@ -6,6 +6,10 @@ Assumptions:
 
 Output of server txt file should be a binary tree, represented with a flat array
 
+#Notes Before trying out script:
+Must install ChicagoCrimes.csv from https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2/data_preview
+Rename CSV to ChicagoCrimes.csv or just change script input files below. Also have an output.txt file ready.
+
 # Step 1 — regenerate input (you may have already done this correctly)
 python3 prep_input.py \
     --dataset ChicagoCrimes.csv \

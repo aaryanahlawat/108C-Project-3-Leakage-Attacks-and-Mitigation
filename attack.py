@@ -386,6 +386,11 @@ def dr_attack(
 
     read_qs = [q for q in queries if q["op"] in ("READ", "GROUP_READ")]
 
+    # Pre-build value → list of indices once (avoids O(N) scan per query per trial)
+    indices_by_value: Dict[str, List[int]] = defaultdict(list)
+    for idx, val in enumerate(plaintext_values):
+        indices_by_value[val].append(idx)
+
     total_correct = 0
     total_tuples  = 0
     pv_correct: Dict[str, int] = defaultdict(int)
@@ -403,18 +408,21 @@ def dr_attack(
             block_id     = q["block_id"]
             partition_id = q["alpha_bits"]
 
-            q_prime = guessed_value.get(block_id)
+            # For GROUP_READ_BLOCK the QR guess is keyed by value_code,
+            # not the individual block_id.
+            if q["op"] == "GROUP_READ_BLOCK":
+                vc = q.get("value_code", block_id)
+                q_prime = guessed_value.get(vc)
+            else:
+                q_prime = guessed_value.get(block_id)
 
             # Candidate indices:
             # - GROUP_READ (alpha_bits=-1): query spans all partitions, so
             #   candidates = ALL plaintext records matching the guessed keyword.
             # - Single-block READ (alpha_bits=0..P-1): filter by partition.
-            if partition_id == -1:  # GROUP_READ
+            if partition_id == -1:  # GROUP_READ — use pre-built index, O(1)
                 if q_prime is not None:
-                    candidate_indices = [
-                        idx for idx in range(N)
-                        if plaintext_values[idx] == q_prime
-                    ]
+                    candidate_indices = indices_by_value.get(q_prime, [])
                 else:
                     candidate_indices = list(range(N))
             elif q_prime is not None:
@@ -626,11 +634,14 @@ def _build_query_truth_with_map(
             write_truth[q["block_id"]] = str(q.get("data", ""))
     group_truth: Dict[int, str] = {}
     for q in queries:
-        if q["op"] == "GROUP_READ":
+        if q["op"] in ("GROUP_READ", "GROUP_READ_BLOCK"):
             vc = q.get("value_code", q["block_id"])
             val = code_to_value.get(str(vc))
             if val:
                 group_truth[vc] = val
+                # Also index by individual block_id for GROUP_READ_BLOCK
+                if q["op"] == "GROUP_READ_BLOCK":
+                    group_truth[q["block_id"]] = val
     # Return a NamespacedTruth object that routes lookups correctly
     return _NamespacedTruth(write_truth, group_truth)
 

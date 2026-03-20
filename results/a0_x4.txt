@@ -1,0 +1,116 @@
+Loading query log : results/a0_x4.jsonl ... 10026 entries.
+
+SEAL parameters   : α=0 (P=1), x=4
+Value map loaded  : 26 codes from value_map.json
+Attack mode       : SE
+Loading dataset   : ChicagoCrimes.csv
+Attribute         : 'Primary Type' ... 8,514,784 records.
+Distinct values   : 34
+Top 5 frequencies :
+  THEFT                                     1,808,607  (21.2%)
+  BATTERY                                   1,551,012  (18.2%)
+  CRIMINAL DAMAGE                             967,949  (11.4%)
+  NARCOTICS                                   766,460  (9.0%)
+  ASSAULT                                     572,220  (6.7%)
+
+Query log         : 10026 total, 0 READs, 26 GROUP_READs
+
+Running Query Recovery Attack (10 trials) ...
+
+==============================================================
+  ATTACK 1 — QUERY RECOVERY  (SEAL §5, Figure 7)
+==============================================================
+  Attribute : Primary Type
+  Padding x : 4
+  Mode      : SE
+
+  QRSR (attack success) :  23.46%
+  Random baseline       :   3.85%
+  Avg candidate set     : 2.9  (smaller = easier for adversary)
+
+  Verdict: ~  PARTIAL   — attack below 50%, tune parameters
+
+  Per-value success (top 10):
+    HUMAN TRAFFICKING                 100.0%  ████████████████████
+    CONCEALED CARRY LICENSE VIOLATIO   60.0%  ████████████
+    INTIMIDATION                       50.0%  ██████████
+    CRIMINAL TRESPASS                  40.0%  ████████
+    WEAPONS VIOLATION                  40.0%  ████████
+    LIQUOR LAW VIOLATION               40.0%  ████████
+    PROSTITUTION                       40.0%  ████████
+    CRIMINAL SEXUAL ASSAULT            30.0%  ██████
+    ROBBERY                            25.0%  █████
+    BURGLARY                           20.0%  ████
+
+  Sample (first 10 READ queries):
+   Block  ObsSize  Cands                   Guess                    True  OK
+  ------  -------  -----  ----------------------  ----------------------  --
+       1     4096      1                   THEFT           OTHER OFFENSE  ✗
+       2     1024      6           OTHER OFFENSE      DECEPTIVE PRACTICE  ✗
+       3     1024      5                 BATTERY                 ASSAULT  ✗
+       4     1024      4         CRIMINAL DAMAGE      DECEPTIVE PRACTICE  ✗
+       5     1024      3                 ASSAULT                 ROBBERY  ✗
+       6     1024      2     MOTOR VEHICLE THEFT  OFFENSE INVOLVING CHIL  ✗
+       7     1024      1                BURGLARY                BURGLARY  ✓
+       8      256      5       WEAPONS VIOLATION      DECEPTIVE PRACTICE  ✗
+       9      256      4      DECEPTIVE PRACTICE  CRIMINAL SEXUAL ASSAUL  ✗
+      10      256      3       CRIMINAL TRESPASS       CRIMINAL TRESPASS  ✓
+
+Running Database Recovery Attack (10 trials) ...
+
+==============================================================
+  ATTACK 2 — DATABASE RECOVERY  (SEAL §5, Figure 8)
+==============================================================
+  Attribute : Primary Type
+  Alpha α   : 0  (1 partitions)
+  Padding x : 4
+
+  DRSR (attack success) :  11.54%
+  Greedy baseline       :  21.24%
+
+  Verdict: ✓ EFFECTIVE  — attack ≈ greedy baseline
+
+  Per-value success (top 10):
+    ARSON                             100.0%  ████████████████████
+    LIQUOR LAW VIOLATION              100.0%  ████████████████████
+    HUMAN TRAFFICKING                 100.0%  ████████████████████
+    OTHER OFFENSE                       0.0%  
+    DECEPTIVE PRACTICE                  0.0%  
+    ASSAULT                             0.0%  
+    ROBBERY                             0.0%  
+    OFFENSE INVOLVING CHILDREN          0.0%  
+    BURGLARY                            0.0%  
+    CRIMINAL SEXUAL ASSAULT             0.0%  
+
+  Sample (first 10 READ queries):
+   Block  Part          GuessedQuery             ChosenVal                  True  OK
+  ------  ----  --------------------  --------------------  --------------------  --
+       1    -1                 THEFT                 THEFT         OTHER OFFENSE  ✗
+       2    -1               BATTERY               BATTERY    DECEPTIVE PRACTICE  ✗
+       3    -1   MOTOR VEHICLE THEFT   MOTOR VEHICLE THEFT               ASSAULT  ✗
+       4    -1              BURGLARY              BURGLARY    DECEPTIVE PRACTICE  ✗
+       5    -1         OTHER OFFENSE         OTHER OFFENSE               ROBBERY  ✗
+       6    -1       CRIMINAL DAMAGE       CRIMINAL DAMAGE  OFFENSE INVOLVING CH  ✗
+       7    -1               ASSAULT               ASSAULT              BURGLARY  ✗
+       8    -1               ROBBERY               ROBBERY    DECEPTIVE PRACTICE  ✗
+       9    -1     WEAPONS VIOLATION     WEAPONS VIOLATION  CRIMINAL SEXUAL ASSA  ✗
+      10    -1    DECEPTIVE PRACTICE    DECEPTIVE PRACTICE     CRIMINAL TRESPASS  ✗
+
+==============================================================
+  SUMMARY
+==============================================================
+  Attribute : Primary Type
+  SEAL(α=0, x=4)
+  Mode      : SE
+
+  Attack 1  QRSR :  23.46%  (baseline 3.85%)
+  Attack 2  DRSR :  11.54%  (greedy   21.24%)
+
+  Tuning guidance:
+    QRSR ≈ baseline → x is effective (or mode is prototype)
+    QRSR >> baseline → increase x for this attribute
+    DRSR ≈ greedy   → α is effective against DB recovery
+    DRSR >> greedy  → decrease α (more partitions = more privacy)
+
+✓ Full results written to: results/a0_x4.json
+==============================================================
